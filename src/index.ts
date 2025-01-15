@@ -1,147 +1,137 @@
-import { executeFFmpeg } from './controllers/Execute'
-import { ParserDetails } from './parsers/Details'
-import { writeFile } from 'fs/promises'
-import { existsSync } from 'fs'
-import { dirname } from 'path'
-import { mkdir } from 'fs/promises'
-
-const HelperPaths = {
-  /*
-  encoders: {
-    name: 'Encoders',
-    types: 'EncoderTypes',
-    categories: 'EncoderCategories',
-    capabilities: 'EncoderCapabilities',
-    ids: 'EncoderIDs'
-  },
-  */
-  /*
-  decoders: {
-    name: 'Decoders',
-    types: 'DecoderTypes',
-    categories: 'DecoderCategories',
-    capabilities: 'DecoderCapabilities',
-    ids: 'DecoderIDs'
-  },
-  */
-  codecs: {
-    name: 'Codecs',
-    types: 'CodecTypes',
-    categories: 'CodecCategories',
-    capabilities: 'CodecCapabilities',
-    ids: 'CodecIDs'
-  },
-  /*
-  formats: {
-    name: 'Formats',
-    types: 'FormatTypes',
-    categories: 'FormatCategories',
-    capabilities: 'FormatCapabilities',
-    ids: 'FormatIDs'
-  },
-  */
-  /*
-  muxers: {
-    name: 'Muxers',
-    types: 'MuxerTypes',
-    categories: 'MuxerCategories',
-    capabilities: 'MuxerCapabilities',
-    ids: 'MuxerIDs'
-  },
-  demuxers: {
-    name: 'Demuxers',
-    types: 'DemuxerTypes',
-    categories: 'DemuxerCategories',
-    capabilities: 'DemuxerCapabilities',
-    ids: 'DemuxerIDs'
-  },
-  devices: {
-    name: 'Devices',
-    types: 'DeviceTypes',
-    categories: 'DeviceCategories',
-    capabilities: 'DeviceCapabilities',
-    ids: 'DeviceIDs'
-  },
-  filters: {
-    name: 'Filters',
-    types: 'FilterTypes',
-    categories: 'FilterCategories',
-    capabilities: 'FilterCapabilities',
-    ids: 'FilterIDs'
-  },
-  pix_fmts: {
-    name: 'PixFmts',
-    types: 'PixFmtTypes',
-    categories: 'PixFmtCategories',
-    capabilities: 'PixFmtCapabilities',
-    ids: 'PixFmtIDs'
-  },
-  layouts: {
-    name: 'Layouts',
-    types: 'LayoutTypes',
-    categories: 'LayoutCategories',
-    capabilities: 'LayoutCapabilities',
-    ids: 'LayoutIDs'
-  },
-  sample_fmts: {
-    name: 'SampleFmts',
-    types: 'SampleFmtTypes',
-    categories: 'SampleFmtCategories',
-    capabilities: 'SampleFmtCapabilities',
-    ids: 'SampleFmtIDs'
-  },
-  bsfs: {
-    name: 'BSFs',
-    types: 'BSFTypes',
-    categories: 'BSFCategories',
-    capabilities: 'BSFCapabilities',
-    ids: 'BSFIDs'
-  },
-  protocols: {
-    name: 'Protocols',
-    types: 'ProtocolTypes',
-    categories: 'ProtocolCategories',
-    capabilities: 'ProtocolCapabilities',
-    ids: 'ProtocolIDs'
-  },
-  dispositions: {
-    name: 'Dispositions',
-    types: 'DispositionTypes',
-    categories: 'DispositionCategories',
-    capabilities: 'DispositionCapabilities',
-    ids: 'DispositionIDs'
-  },
-  colors: {
-    name: 'Colors',
-    types: 'ColorTypes',
-    categories: 'ColorCategories',
-    capabilities: 'ColorCapabilities',
-    ids: 'ColorIDs'
-  },
-  hwaccels: {
-    name: 'HwAccels',
-    types: 'HwAccelTypes',
-    categories: 'HwAccelCategories',
-    capabilities: 'HwAccelCapabilities',
-    ids: 'HwAccelIDs'
-  }
-  */
-}
-
-for (const [key, nomenclature] of Object.entries(HelperPaths)) {
-  try {
-    const ffmpegPath = 'binary\\ffmpeg\\bin\\ffmpeg.exe'
-    const args = [`-${key}`]
-  
-    const output = await executeFFmpeg(ffmpegPath, args)
-    const parser = new ParserDetails({ input: output, nomenclature })
-
-    const outpath = `src/types/${key}.ts`
-
-    if (!existsSync(dirname(outpath))) await mkdir(dirname(outpath), { recursive: true })
-    await writeFile(outpath, parser.generated.code)
-  } catch (error) {
-    console.error('Erro ao executar FFmpeg:')
-    console.error(error)
-  }
-}
+import './types/AVOptions/AVCodecContext.ts'
+import './types/AVOptions/amv_encoder.ts'
+import './types/AVOptions/APNG_encoder.ts'
+import './types/AVOptions/cfhd.ts'
+import './types/AVOptions/dnxhd.ts'
+import './types/AVOptions/exr.ts'
+import './types/AVOptions/ffv1_encoder.ts'
+import './types/AVOptions/ffvhuff.ts'
+import './types/AVOptions/flv_encoder.ts'
+import './types/AVOptions/h261_encoder.ts'
+import './types/AVOptions/Hap_encoder.ts'
+import './types/AVOptions/huffyuv.ts'
+import './types/AVOptions/jpeg_2000_encoder.ts'
+import './types/AVOptions/jpegls.ts'
+import './types/AVOptions/ljpeg.ts'
+import './types/AVOptions/magicyuv.ts'
+import './types/AVOptions/mjpeg_encoder.ts'
+import './types/AVOptions/mpeg1video_encoder.ts'
+import './types/AVOptions/mpeg2video_encoder.ts'
+import './types/AVOptions/MPEG4_encoder.ts'
+import './types/AVOptions/msmpeg4v2_encoder.ts'
+import './types/AVOptions/msmpeg4v3_encoder.ts'
+import './types/AVOptions/PNG_encoder.ts'
+import './types/AVOptions/ProRes_encoder.ts'
+import './types/AVOptions/rv10_encoder.ts'
+import './types/AVOptions/rv20_encoder.ts'
+import './types/AVOptions/snow_encoder.ts'
+import './types/AVOptions/speedhq_encoder.ts'
+import './types/AVOptions/TIFF_encoder.ts'
+import './types/AVOptions/utvideo.ts'
+import './types/AVOptions/wmv1_encoder.ts'
+import './types/AVOptions/wmv2_encoder.ts'
+import './types/AVOptions/AAC_encoder.ts'
+import './types/AVOptions/alacenc.ts'
+import './types/AVOptions/FLAC_encoder.ts'
+import './types/AVOptions/MOV_text_enoder.ts'
+import './types/AVOptions/libcodec2_encoder.ts'
+import './types/AVOptions/libopus.ts'
+import './types/AVOptions/libtwolame_encoder.ts'
+import './types/AVOptions/libvorbis.ts'
+import './types/AVOptions/libwebp_anim.ts'
+import './types/AVOptions/libwebp.ts'
+import './types/AVOptions/libx264.ts'
+import './types/AVOptions/libx264rgb.ts'
+import './types/AVOptions/libxvid.ts'
+import './types/AVOptions/h264_nvenc.ts'
+import './types/AVOptions/h264_omx.ts'
+import './types/AVOptions/h264_qsv_encoder.ts'
+import './types/AVOptions/h264_vaapi.ts'
+import './types/AVOptions/nvenc.ts'
+import './types/AVOptions/nvenc_h264.ts'
+import './types/AVOptions/nvenc_hevc.ts'
+import './types/AVOptions/hevc_nvenc.ts'
+import './types/AVOptions/hevc_qsv_encoder.ts'
+import './types/AVOptions/h265_vaapi.ts'
+import './types/AVOptions/mpeg2_qsv_encoder.ts'
+import './types/AVOptions/mpeg2_vaapi.ts'
+import './types/AVOptions/mpeg4_omx.ts'
+import './types/AVOptions/vp8_vaapi.ts'
+import './types/AVOptions/vp9_vaapi.ts'
+import './types/AVOptions/vp9_qsv_encoder.ts'
+import './types/AVOptions/EXR.ts'
+import './types/AVOptions/h264_qsv.ts'
+import './types/AVOptions/hevc_qsv.ts'
+import './types/AVOptions/mpeg2_qsv.ts'
+import './types/AVOptions/SMPTE_302M_Decoder.ts'
+import './types/AVOptions/vc1_qsv.ts'
+import './types/AVOptions/AAC_decoder.ts'
+import './types/AVOptions/APE_decoder.ts'
+import './types/AVOptions/Closed_caption_Decoder.ts'
+import './types/AVOptions/libzvbi_teletextdec.ts'
+import './types/AVOptions/av1_cuvid.ts'
+import './types/AVOptions/av1_qsv.ts'
+import './types/AVOptions/h264_cuvid.ts'
+import './types/AVOptions/hevc_cuvid.ts'
+import './types/AVOptions/mjpeg_cuvid.ts'
+import './types/AVOptions/mjpeg_qsv.ts'
+import './types/AVOptions/mpeg1_cuvid.ts'
+import './types/AVOptions/mpeg2_cuvid.ts'
+import './types/AVOptions/mpeg4_cuvid.ts'
+import './types/AVOptions/vc1_cuvid.ts'
+import './types/AVOptions/vp8_cuvid.ts'
+import './types/AVOptions/vp8_qsv.ts'
+import './types/AVOptions/vp9_cuvid.ts'
+import './types/AVOptions/vp9_qsv.ts'
+import './types/AVOptions/AVFormatContext.ts'
+import './types/AVOptions/http.ts'
+import './types/AVOptions/https.ts'
+import './types/AVOptions/rtmp.ts'
+import './types/AVOptions/rtmps.ts'
+import './types/AVOptions/rtmpt.ts'
+import './types/AVOptions/rtmpts.ts'
+import './types/AVOptions/unix.ts'
+import './types/AVOptions/amqp.ts'
+import './types/AVOptions/libsrt.ts'
+import './types/AVOptions/alp.ts'
+import './types/AVOptions/dash_muxer.ts'
+import './types/AVOptions/f4v_muxer.ts'
+import './types/AVOptions/hls_muxer.ts'
+import './types/AVOptions/ipod_muxer.ts'
+import './types/AVOptions/ismv_muxer.ts'
+import './types/AVOptions/matroska_muxer.ts'
+import './types/AVOptions/matroska_audio_muxer.ts'
+import './types/AVOptions/mov_muxer.ts'
+import './types/AVOptions/mp4_muxer.ts'
+import './types/AVOptions/MPEGTS_muxer.ts'
+import './types/AVOptions/MXF_muxer.ts'
+import './types/AVOptions/psp_muxer.ts'
+import './types/AVOptions/segment_muxer.ts'
+import './types/AVOptions/stream_segment_muxer.ts'
+import './types/AVOptions/tg2_muxer.ts'
+import './types/AVOptions/tgp_muxer.ts'
+import './types/AVOptions/WAV_muxer.ts'
+import './types/AVOptions/webm_muxer.ts'
+import './types/AVOptions/chromaprint_muxer.ts'
+import './types/AVOptions/codec2raw_demuxer.ts'
+import './types/AVOptions/image2_demuxer.ts'
+import './types/AVOptions/alias_pix_demuxer.ts'
+import './types/AVOptions/brender_pix_demuxer.ts'
+import './types/AVOptions/mlp_demuxer.ts'
+import './types/AVOptions/WebVTT_demuxer.ts'
+import './types/AVOptions/libopenmpt.ts'
+import './types/AVOptions/iec61883_indev.ts'
+import './types/AVOptions/openal_indev.ts'
+import './types/AVOptions/V4L2_indev.ts'
+import './types/AVOptions/xcbgrab_indev.ts'
+import './types/AVOptions/SWScaler.ts'
+import './types/AVOptions/SWResampler.ts'
+import './types/AVOptions/AVDCT.ts'
+import './types/AVOptions/av1_metadata_bsf.ts'
+import './types/AVOptions/dump_extradata_bsf.ts'
+import './types/AVOptions/h264_metadata_bsf.ts'
+import './types/AVOptions/hapqa_extract_bsf.ts'
+import './types/AVOptions/h265_metadata_bsf.ts'
+import './types/AVOptions/prores_metadata_bsf.ts'
+import './types/AVOptions/remove_extradata.ts'
+import './types/AVOptions/vp9_metadata_bsf.ts'

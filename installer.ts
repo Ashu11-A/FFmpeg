@@ -74,7 +74,7 @@ async function findFolderByPrefix(dirPath: string, prefix: string): Promise<stri
 const arch = process.arch === 'x64' ? '64' : process.arch
 const platform = process.platform === 'win32' ? 'win' : process.platform
 const fileType = process.platform === 'win32' ? 'zip' : 'tar.xz'
-const fileName = `ffmpeg-master-latest-${platform}${arch}-gpl-shared.${fileType}`
+const fileName = `ffmpeg-master-latest-${platform}${arch}-gpl.${fileType}`
 
 const link = `https://github.com/BtbN/FFmpeg-Builds/releases/download/latest/${fileName}`
 const filePath = join(path, fileName) 

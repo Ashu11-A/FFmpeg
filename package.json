@@ -5,6 +5,9 @@
   "bin": {
     "ffmpeg": "./binary/ffmpeg/bin/ffmpeg"
   },
+  "scripts": {
+    "install": "bun run installer.ts"
+  },
   "os": ["linux", "win32", "darwin"],
   "cpu": ["x64", "arm64"],
   "dependencies": {
